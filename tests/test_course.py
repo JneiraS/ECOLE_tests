@@ -42,5 +42,5 @@ def test_str_with_teacher():
     teacher = MockTeacher().return_full_name()
 
     course.teacher = teacher
-    expected_str = "Test Course (2024-01-01 – 2024-01-31),\nenseigné par : Jean Dupont"
+    expected_str = "Test Course (2024-01-01 – 2024-01-31),\nenseigné par Jean Dupont"
     assert str(course) == expected_str

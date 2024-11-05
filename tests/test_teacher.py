@@ -45,8 +45,3 @@ def test_teacher_str():
     teacher = make_teacher()
     assert str(teacher) == "Jean Dupont (42 ans), arrivé(e) le 2024-01-01"
 
-
-if __name__ == "__main__":
-    test_teacher_attributes()
-    test_add_course()
-    test_teacher_str()
