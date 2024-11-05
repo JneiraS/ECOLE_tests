@@ -1,4 +1,5 @@
 from datetime import date
+from unittest.mock import Mock
 
 from models.teacher import Teacher
 
@@ -8,16 +9,13 @@ def make_teacher() -> Teacher:
 
 
 # MOOK
-class MookCourse:
-    @staticmethod
-    def get_instance():
-        return {"name": "Test Course",
-                "start_date": date(2024, 1, 1),
-                "end_date": date(2024, 1, 1),
-                "teacher": {"first_name": "Jean", "last_name": "Dupont", "age": 42, "hiring_date": date(
-                    2024, 1, 1)},
-                "students_taking_it": []}
-
+class MockCourse:
+    def __init__(self, students_taking_it=[]):
+        self.name = "Test Course"
+        self.start_date = date(2024, 1, 1)
+        self.end_date = date(2024, 1, 1)
+        self.teacher = {"first_name": "Jean", "last_name": "Dupont", "age": 42, "hiring_date": date(2024, 1, 1)}
+        self.students_taking_it = students_taking_it
 
 def test_teacher_attributes():
     teacher = make_teacher()
@@ -36,7 +34,7 @@ def test_teacher_attributes():
 
 def test_add_course():
     teacher = make_teacher()
-    course = MookCourse.get_instance()
+    course = MockCourse
     teacher.add_course(course)
     assert teacher.courses_teached == [course]
 
