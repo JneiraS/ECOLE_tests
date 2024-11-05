@@ -44,6 +44,7 @@ class Course:
                 teacher.courses_teached.remove(self)
             # ajout du cours à l'enseignant indiqué
             teacher.courses_teached.append(self)
+            self.teacher = teacher
 
     def add_student(self, student: Student) -> None:
         """Ajoute :
