@@ -1,5 +1,8 @@
 from datetime import date
 
+import pytest
+
+from models.course import Course
 from models.teacher import Teacher
 
 
@@ -7,14 +10,18 @@ def make_teacher() -> Teacher:
     return Teacher("Jean", "Dupont", 42, date(2024, 1, 1))
 
 
-class MockCourse:
-    def __init__(self, students_taking_it=[]):
-        self.name = "Test Course"
-        self.start_date = date(2024, 1, 1)
-        self.end_date = date(2024, 1, 1)
-        self.teacher = {"first_name": "Jean", "last_name": "Dupont", "age": 42,
-                        "hiring_date": date(2024, 1, 1)}
-        self.students_taking_it = students_taking_it
+@pytest.fixture
+def mock_course():
+    class MockCourse:
+        def __init__(self, students_taking_it=[]):
+            self.name = "Test Course"
+            self.start_date = date(2024, 1, 1)
+            self.end_date = date(2024, 1, 1)
+            self.teacher = {"first_name": "Jean", "last_name": "Dupont", "age": 42,
+                            "hiring_date": date(2024, 1, 1)}
+            self.students_taking_it = students_taking_it
+
+    return MockCourse()
 
 
 class TestsTeacher:
@@ -32,11 +39,10 @@ class TestsTeacher:
         assert teacher.age == 42
         assert teacher.hiring_date == date(2024, 1, 1)
 
-    def test_add_course(self):
+    def test_add_course(self, mock_course):
         teacher = make_teacher()
-        course = MockCourse
-        teacher.add_course(course)
-        assert teacher.courses_teached == [course]
+        teacher.add_course(mock_course)
+        assert teacher.courses_teached == [mock_course]
 
     def test_teacher_str(self):
         teacher = make_teacher()

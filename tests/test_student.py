@@ -1,5 +1,5 @@
 from models.student import Student
-from test_teacher import MockCourse
+from test_teacher import mock_course
 
 
 def make_student() -> Student:
@@ -20,10 +20,9 @@ class TestStudent:
         student = make_student()
         assert student.student_nbr == 3
 
-    def teststudent_add_course(self):
+    def teststudent_add_course(self, mock_course):
         student = make_student()
-        course = MockCourse()
         assert len(student.courses_taken) == 0
-        student.add_course(course)
+        student.add_course(mock_course)
         assert len(student.courses_taken) == 1
-        assert student.courses_taken[0] == course
+        assert student.courses_taken[0] == mock_course
