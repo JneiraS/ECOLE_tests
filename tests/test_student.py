@@ -1,5 +1,14 @@
+from datetime import date
+
+import pytest
+
+from models.course import Course
 from models.student import Student
-from test_teacher import mock_course
+
+
+@pytest.fixture
+def mock_course():
+    return Course("Mathématiques", date(2024, 1, 31), date(2025, 1, 31))
 
 
 def make_student() -> Student:
