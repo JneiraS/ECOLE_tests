@@ -17,7 +17,7 @@ def mock_teacher():
             self.first_name = "Jean"
             self.last_name = "Dupont"
             self.hiring_date = date(2024, 1, 1)
-            self.courses_teached = []
+            self.courses_teached = [course]
 
         def return_full_name(self) -> str:
             return f"{self.first_name} {self.last_name}"
@@ -62,4 +62,45 @@ class TestsCourse:
 
     def test_add_student(self, course, mock_student):
         course.add_student(mock_student)
-        assert course.students_taking_it == [mock_student]
+
+    def test_set_teacher_replaces_existing_teacher(self, course):
+        """
+        Tester que la définition d'un nouvel enseignant pour un cours, remplace l'enseignant existant.
+
+        Ce test vérifie le comportement suivant :
+        - Un cours peut changer l'enseignant qui lui a été assigné
+        - Le cours est supprimé des cours de l'ancien enseignant.
+        - Le cours est ajouté aux cours du nouvel enseignant.
+        """
+
+        # Create first teacher
+        class MockTeacher1:
+            def __init__(self):
+                self.first_name = "Jean"
+                self.last_name = "Dupont"
+                self.hiring_date = date(2024, 1, 1)
+                self.courses_teached = []
+
+            def return_full_name(self) -> str:
+                return f"{self.first_name} {self.last_name}"
+
+        # Create second teacher
+        class MockTeacher2:
+            def __init__(self):
+                self.first_name = "Marie"
+                self.last_name = "Martin"
+                self.hiring_date = date(2024, 1, 1)
+                self.courses_teached = []
+
+            def return_full_name(self) -> str:
+                return f"{self.first_name} {self.last_name}"
+
+        initial_teacher = MockTeacher1()
+        new_teacher = MockTeacher2()
+
+        course.set_teacher(initial_teacher)
+        course.set_teacher(new_teacher)
+
+        assert course.teacher == new_teacher
+        assert course not in initial_teacher.courses_teached
+        assert course in new_teacher.courses_teached

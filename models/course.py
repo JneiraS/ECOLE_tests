@@ -28,6 +28,7 @@ class Course:
     - teacher            : enseignant de ce cours
     - students_taking_it : élèves qui suivent ce cours
     """
+
     name: str
     start_date: date
     end_date: date
@@ -55,6 +56,9 @@ class Course:
 
     def __str__(self) -> str:
         course_str = f"{self.name} ({self.start_date} – {self.end_date}),\n"
-        course_str += f"enseigné par {self.teacher}" \
-            if self.teacher is not None else "pas d'enseignant affecté"
+        course_str += (
+            f"enseigné par {self.teacher}"
+            if self.teacher is not None
+            else "pas d'enseignant affecté"
+        )
         return course_str
