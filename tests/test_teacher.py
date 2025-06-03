@@ -2,7 +2,6 @@ from datetime import date
 
 import pytest
 
-from models.course import Course
 from models.teacher import Teacher
 
 
@@ -13,12 +12,18 @@ def make_teacher() -> Teacher:
 @pytest.fixture
 def mock_course():
     class MockCourse:
-        def __init__(self, students_taking_it=[]):
+        def __init__(self, students_taking_it=None):
+            if students_taking_it is None:
+                students_taking_it = []
             self.name = "Test Course"
             self.start_date = date(2024, 1, 1)
             self.end_date = date(2024, 1, 1)
-            self.teacher = {"first_name": "Jean", "last_name": "Dupont", "age": 42,
-                            "hiring_date": date(2024, 1, 1)}
+            self.teacher = {
+                "first_name": "Jean",
+                "last_name": "Dupont",
+                "age": 42,
+                "hiring_date": date(2024, 1, 1),
+            }
             self.students_taking_it = students_taking_it
 
     return MockCourse()

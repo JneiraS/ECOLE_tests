@@ -7,9 +7,7 @@ from models.course import Course
 
 @pytest.fixture
 def course() -> Course:
-    return Course("Test Course",
-                  date(2024, 1, 1),
-                  date(2024, 1, 31))
+    return Course("Test Course", date(2024, 1, 1), date(2024, 1, 31))
 
 
 @pytest.fixture
@@ -41,16 +39,20 @@ class TestsCourse:
         assert isinstance(course, Course)
 
     def test_attributes(self, course):
-        assert course.name == 'Test Course'
+        assert course.name == "Test Course"
         assert course.start_date == date(2024, 1, 1)
         assert course.end_date == date(2024, 1, 31)
 
     def test_str_no_teacher(self, course):
-        assert str(course) == "Test Course (2024-01-01 – 2024-01-31),\npas d'enseignant affecté"
+        assert str(course) == (
+            "Test Course (2024-01-01 – 2024-01-31)," "\npas d'enseignant affecté"
+        )
 
     def test_str_with_teacher(self, course, mock_teacher):
         course.teacher = mock_teacher.return_full_name()
-        expected_str = "Test Course (2024-01-01 – 2024-01-31),\nenseigné par Jean Dupont"
+        expected_str = (
+            "Test Course (2024-01-01 – 2024-01-31)," "\nenseigné par Jean Dupont"
+        )
         assert str(course) == expected_str
 
     def test_set_teacher(self, course, mock_teacher):
