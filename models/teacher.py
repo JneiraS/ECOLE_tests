@@ -19,9 +19,9 @@ class Teacher(Person):
     hiring_date: date
     courses_teached: list[Course] = field(default_factory=list, init=False)
 
-    # def add_course(self, course: Course) -> None:
-    #     """Ajout du cours course à la liste des cours qu'il enseigne."""
-    #     self.courses_teached.append(course)
+    def add_course(self, course: Course) -> None:
+        """Ajout du cours course à la liste des cours qu'il enseigne."""
+        self.courses_teached.append(course)
 
     def __str__(self) -> str:
         person_str = super().__str__()
