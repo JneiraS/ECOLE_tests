@@ -65,7 +65,8 @@ class TestsCourse:
 
     def test_set_teacher_replaces_existing_teacher(self, course):
         """
-        Tester que la définition d'un nouvel enseignant pour un cours, remplace l'enseignant existant.
+        Tester que la définition d'un nouvel enseignant pour un cours,
+         remplace l'enseignant existant.
 
         Ce test vérifie le comportement suivant :
         - Un cours peut changer l'enseignant qui lui a été assigné
